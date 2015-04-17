@@ -2031,13 +2031,13 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f0b0041;
         public static final int action_mode_bar_stub=0x7f0b0040;
         public static final int action_mode_close_button=0x7f0b0033;
-        public static final int action_settings=0x7f0b0055;
+        public static final int action_settings=0x7f0b0056;
         public static final int activity_chooser_view_content=0x7f0b0034;
         public static final int always=0x7f0b0025;
         public static final int beginning=0x7f0b002c;
         public static final int book_now=0x7f0b0017;
         public static final int bottom=0x7f0b002f;
-        public static final int btnEnter=0x7f0b0054;
+        public static final int btnEnter=0x7f0b0055;
         public static final int buyButton=0x7f0b0013;
         public static final int buy_now=0x7f0b0018;
         public static final int buy_with_google=0x7f0b0019;
@@ -2099,6 +2099,7 @@ containing a value of this type.
         public static final int terrain=0x7f0b000d;
         public static final int textView1=0x7f0b0052;
         public static final int title=0x7f0b003a;
+        public static final int togglebutton=0x7f0b0054;
         public static final int top=0x7f0b0030;
         public static final int up=0x7f0b0001;
         public static final int useLogo=0x7f0b0024;
