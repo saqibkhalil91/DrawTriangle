@@ -1,9 +1,4 @@
 package com.drawtriangle.activities;
-
-
-
-
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -15,8 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 public class InputActivity extends Activity implements OnClickListener {
 	private Button enter;
@@ -26,6 +23,10 @@ public class InputActivity extends Activity implements OnClickListener {
 	private int angle;
 	private double secondAngle;
 	private double sinValue;
+	private double thirdLength;
+	private double triangleArea;
+	private int checkToggle =0;
+	private double angle1,angle2,length3;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,50 +38,84 @@ public class InputActivity extends Activity implements OnClickListener {
 		enter =(Button)findViewById(R.id.btnEnter);
 		enter.setOnClickListener(this);
 		values = (EditText)findViewById(R.id.edtValues);
-		
-
 	}
 	private void separateValues( String values)
 	{
-		String val =values;
-	
-		
+			String val =values;
 			String [] parts = val.split(",");
 			String part1 = parts[0]; 
 			String part2 = parts[1]; 
 			String part3 = parts[2];
+		if(checkToggle==0){
+			
 			length1 =Integer.parseInt(part1);
 			length2= Integer.parseInt(part2);
 			angle=Integer.parseInt(part3);
 			 secondAngle=findAngle(length1, length2, angle);
-			 sinValue =angleSize(length1, length2, angle);
-			
-			
-			
+			 sinValue =givenAngleSinValue(length1, length2, angle);		
+			 double sidesRatio=triangleSideRatio(length1, length2, secondAngle);
+			 triangleArea =triangleArea(sidesRatio, length1, length2, thirdLength);
+		}else if(checkToggle==1)
+		{
+			angle1 =Integer.parseInt(part1);
+			angle2= Integer.parseInt(part2);
+			length3=Integer.parseInt(part3);
+		}
+			 
 	}
 	private double findAngle(int length1,int length2,int angle)
 	{
-				double radianValue = 0.017;
-				double randianAngle = angle*radianValue;
-				double sinValue= Math.sin(randianAngle);
-				double ratio=sinValue/length2;
-				double calculateAngle=length1*ratio;
-				double  secondAngle=  Math.asin(calculateAngle);
-				Log.d("second angle", secondAngle+"");
-				double AngleC = secondAngle*57.29;
-				Log.d("AngleC", AngleC+"");
-				return AngleC;				
+		double radianValue = 0.017;
+		double randianAngle = angle*radianValue;
+		double sinValue= Math.sin(randianAngle);
+		double ratio=sinValue/length2;
+		double calculateAngle=length1*ratio;
+		double  secondAngle=  Math.asin(calculateAngle);
+		Log.d("second angle", secondAngle+"");
+		double AngleC = secondAngle*57.29;
+		Log.d("AngleC", AngleC+"");
+		return AngleC;				
 	}
-	private double angleSize(int length1,int lenght2,int angle)
+	private double givenAngleSinValue(int length1,int lenght2,int angle)
 	{
 		double radianValue = 0.017;
 		double randianAngle = angle*radianValue;
 		double ratio = length1/lenght2;
 		double sinAngle=Math.sin(randianAngle);
 		double D =sinAngle*ratio;
-		Log.d("value of D", D+"" );
 		return D;	
 	}
+	private double triangleSideRatio(int length1,int length2,double angle)
+	{
+		double length1Power=  Math.pow(length1, 2);
+		double length2Power = Math.pow(length2, 2);
+		double sidesProduct=length1*length2*2;
+		double randianAngle = degreeToRadian(angle);
+		double cosValue= Math.cos(randianAngle);
+		double cosMultiplySidesProduct=sidesProduct*cosValue;
+		double squarethirdLenght =length1Power+length2Power-cosMultiplySidesProduct;
+		thirdLength=Math.sqrt(squarethirdLenght);
+		double sides =length1+length2+thirdLength;
+		double sideRatio= sides/2;
+		return sideRatio;
+		
+	}
+	private double triangleArea(double s,int length1,int lenth2,double lenth3)
+	{
+		double subtractlength1=s-length1;
+		double subtractlenght2 = s-lenth2;
+		double subtratlength3 = s-lenth3;
+		double productArea = s*subtractlength1*subtractlenght2 *subtratlength3;
+		double area =Math.sqrt(productArea);
+		return area;
+	}
+	private double degreeToRadian(double degree)
+	{
+		double radianValue = 0.017;
+		double radianAngle =degree*radianValue;
+		return radianAngle;
+	}
+	
 	private void triangleNotValid() {
 
 		AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this);
@@ -99,6 +134,18 @@ public class InputActivity extends Activity implements OnClickListener {
 		helpDialog.show();
 
 	}
+	public void onToggleClicked(View view) {
+	    // Is the toggle on?
+	    boolean on = ((ToggleButton) view).isChecked();
+	    
+	    if (on) {
+	    	checkToggle=1;
+	        Toast.makeText(this, "AAL", Toast.LENGTH_LONG).show();
+	    } else {
+	    	   Toast.makeText(this, "LLA", Toast.LENGTH_LONG).show();
+	    	   checkToggle=0;
+	    }
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		 getMenuInflater().inflate(R.menu.input, menu);
@@ -114,31 +161,41 @@ public class InputActivity extends Activity implements OnClickListener {
 				String triangleValues = values.getText().toString();
 				
 				separateValues(triangleValues);
-				double sumAngle=angle+secondAngle;
-				if(!triangleValues.equals("null")&&triangleValues.length()>=5 ){
-							if(sumAngle>180 || sinValue>1 )
-							{
-								triangleNotValid();
-								
-							} else
-							{
-								
-									Bundle bundle = new Bundle();
-									
-								    bundle.putInt("l1", length1);
-								    bundle.putInt("l2", length2);
-								    bundle.putInt("angle", angle);
-								    
-									
-									Intent triangle = new Intent(this,Triangle.class);
-									triangle.putExtras(bundle);
-									startActivity(triangle);
-								
-								
+				if(checkToggle==0){
+							double sumAngle=angle+secondAngle;
+							if(!triangleValues.equals("null")&&triangleValues.length()>=5 ){
+										if(sumAngle>180 || sinValue>1||triangleArea<0 )
+										{
+											triangleNotValid();
+											
+										} else
+										{
+												Bundle bundle = new Bundle();
+												 bundle.putInt("l1", length1);
+											    bundle.putInt("l2", length2);
+											    bundle.putInt("angle", angle);
+											    Intent triangle = new Intent(this,Triangle.class);
+												triangle.putExtras(bundle);
+												startActivity(triangle);
+											}
+							}
+							else{
+								Toast.makeText(this, "Enter values", Toast.LENGTH_SHORT).show();
 							}
 				}
-				else{
-					Toast.makeText(this, "Enter values", Toast.LENGTH_SHORT).show();
+				else if(checkToggle==1)
+				{
+					double sumAngle=angle1+angle2;
+					if(sumAngle>180)
+					{
+						triangleNotValid();
+					}
+					else
+					{
+						//set values in bundle and send data to next activity
+						// Intent triangle = new Intent(this,Triangle.class);
+						//startActivity(triangle);
+					}
 				}
 			
 			break;
