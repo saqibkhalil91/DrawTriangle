@@ -71,10 +71,13 @@ public class InputActivity extends Activity implements OnClickListener {
 		double ratio=sinValue/length2;
 		double calculateAngle=length1*ratio;
 		double  secondAngle=  Math.asin(calculateAngle);
-		Log.d("second angle", secondAngle+"");
 		double AngleC = secondAngle*57.29;
-		Log.d("AngleC", AngleC+"");
-		return AngleC;				
+		if(Double.isNaN(AngleC)==true){
+			return -8888.0;	
+		}else{
+		
+		return AngleC;	
+		}
 	}
 	private double givenAngleSinValue(int length1,int lenght2,int angle)
 	{
@@ -83,7 +86,11 @@ public class InputActivity extends Activity implements OnClickListener {
 		double ratio = length1/lenght2;
 		double sinAngle=Math.sin(randianAngle);
 		double D =sinAngle*ratio;
-		return D;	
+		if(Double.isNaN(D)==true){
+			 return -8888.0;
+		}else{
+		return D;
+		}
 	}
 	private double triangleSideRatio(int length1,int length2,double angle)
 	{
@@ -107,7 +114,12 @@ public class InputActivity extends Activity implements OnClickListener {
 		double subtratlength3 = s-lenth3;
 		double productArea = s*subtractlength1*subtractlenght2 *subtratlength3;
 		double area =Math.sqrt(productArea);
+		if(Double.isNaN(area)==true){
+			return -8888.0;
+		}else{
+		
 		return area;
+		}
 	}
 	private double degreeToRadian(double degree)
 	{
@@ -158,13 +170,20 @@ public class InputActivity extends Activity implements OnClickListener {
 		switch(key)
 		{
 			case R.id.btnEnter:
+				double sumTwoAngle;
 				String triangleValues = values.getText().toString();
 				
 				separateValues(triangleValues);
+			
+				Log.d("secondAngle", secondAngle+"");
+				Log.d("sinValue", sinValue+"");
+				Log.d("triangleArea", triangleArea+"");
+				
 				if(checkToggle==0){
-							double sumAngle=angle+secondAngle;
+					
+					 sumTwoAngle=angle+secondAngle;
 							if(!triangleValues.equals("null")&&triangleValues.length()>=5 ){
-										if(sumAngle>180 || sinValue>1||triangleArea<0 )
+										if(sumTwoAngle>=180 ||sumTwoAngle==-8888.0|| sinValue>1||triangleArea<0 || triangleArea==-8888.0 ||secondAngle==-8888.0)
 										{
 											triangleNotValid();
 											
@@ -186,7 +205,7 @@ public class InputActivity extends Activity implements OnClickListener {
 				else if(checkToggle==1)
 				{
 					double sumAngle=angle1+angle2;
-					if(sumAngle>180)
+					if(sumAngle>=180)
 					{
 						triangleNotValid();
 					}
