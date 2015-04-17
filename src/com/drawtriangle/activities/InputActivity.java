@@ -18,15 +18,15 @@ import android.widget.ToggleButton;
 public class InputActivity extends Activity implements OnClickListener {
 	private Button enter;
 	private EditText values;
-	private int length1;
-	private int length2;
-	private int angle;
-	private double secondAngle;
+	private double length1;
+	private double length2,length3;
+	private double angle,angle2,angle3;
+	//private double secondAngle;
 	private double sinValue;
 	private double thirdLength;
 	private double triangleArea;
 	private int checkToggle =0;
-	private double angle1,angle2,length3;
+	private double angle1A,angle2A,angle3A,length2A,length1A,length3A;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,19 +51,36 @@ public class InputActivity extends Activity implements OnClickListener {
 			length1 =Integer.parseInt(part1);
 			length2= Integer.parseInt(part2);
 			angle=Integer.parseInt(part3);
-			 secondAngle=findAngle(length1, length2, angle);
+			angle2=findAngle(length1, length2, angle);
+				angle3=getAngle3(angle1A, angle2A);
 			 sinValue =givenAngleSinValue(length1, length2, angle);		
-			 double sidesRatio=triangleSideRatio(length1, length2, secondAngle);
+			 double sidesRatio=triangleSideRatio(length1, length2, angle2);
 			 triangleArea =triangleArea(sidesRatio, length1, length2, thirdLength);
+				Log.d("length1", length1+"");
+				Log.d("length2",length2+"");
+				Log.d("length3",length3+"");
+				Log.d("angle1", angle+"");
+				Log.d("angle2",angle2+"");
+				Log.d("angle3", angle3+"");
+				
 		}else if(checkToggle==1)
 		{
-			angle1 =Integer.parseInt(part1);
-			angle2= Integer.parseInt(part2);
-			length3=Integer.parseInt(part3);
+			angle1A =Integer.parseInt(part1);
+			angle2A= Integer.parseInt(part2);
+			length1A=Integer.parseInt(part3);
+			angle3A=getAngle3(angle1A, angle2A);
+			length2A=findSide(angle1A, angle3A, length1A);
+			length3A=findSide(angle2A, angle3A, length1A);
+			Log.d("angle1", angle1A+"");
+			Log.d("angle2",angle2A+"");
+			Log.d("angle3",angle3A+"");
+			Log.d("lenght1", length1A+"");
+			Log.d("length2A",length2A+"");
+			Log.d("length3A", length3A+"");
 		}
 			 
 	}
-	private double findAngle(int length1,int length2,int angle)
+	private double findAngle(double length1,double length2,double angle)
 	{
 		double radianValue = 0.017;
 		double randianAngle = angle*radianValue;
@@ -79,7 +96,7 @@ public class InputActivity extends Activity implements OnClickListener {
 		return AngleC;	
 		}
 	}
-	private double givenAngleSinValue(int length1,int lenght2,int angle)
+	private double givenAngleSinValue(double length1,double lenght2,double angle)
 	{
 		double radianValue = 0.017;
 		double randianAngle = angle*radianValue;
@@ -92,7 +109,7 @@ public class InputActivity extends Activity implements OnClickListener {
 		return D;
 		}
 	}
-	private double triangleSideRatio(int length1,int length2,double angle)
+	private double triangleSideRatio(double length1,double length2,double angle)
 	{
 		double length1Power=  Math.pow(length1, 2);
 		double length2Power = Math.pow(length2, 2);
@@ -102,12 +119,13 @@ public class InputActivity extends Activity implements OnClickListener {
 		double cosMultiplySidesProduct=sidesProduct*cosValue;
 		double squarethirdLenght =length1Power+length2Power-cosMultiplySidesProduct;
 		thirdLength=Math.sqrt(squarethirdLenght);
+		length3=thirdLength;
 		double sides =length1+length2+thirdLength;
 		double sideRatio= sides/2;
 		return sideRatio;
 		
 	}
-	private double triangleArea(double s,int length1,int lenth2,double lenth3)
+	private double triangleArea(double s,double length1,double lenth2,double lenth3)
 	{
 		double subtractlength1=s-length1;
 		double subtractlenght2 = s-lenth2;
@@ -158,6 +176,22 @@ public class InputActivity extends Activity implements OnClickListener {
 	    	   checkToggle=0;
 	    }
 	}
+	private double getAngle3(double angle1,double angle2)
+	{
+		double findThirdAngle =180-angle1-angle2;
+		return findThirdAngle;
+	}
+	private double findSide(double angle1,double angle2,double c)
+	{
+		double randianAngle2 = degreeToRadian(angle2);
+		double C=Math.sin(randianAngle2);
+		double randianAngle1 = degreeToRadian(angle1);
+		double B=Math.sin(randianAngle1);
+		double productAnlgeLength=B*c;
+		double b=productAnlgeLength/C;
+		return b;
+		
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		 getMenuInflater().inflate(R.menu.input, menu);
@@ -175,24 +209,24 @@ public class InputActivity extends Activity implements OnClickListener {
 				
 				separateValues(triangleValues);
 			
-				Log.d("secondAngle", secondAngle+"");
+				Log.d("secondAngle", angle2+"");
 				Log.d("sinValue", sinValue+"");
 				Log.d("triangleArea", triangleArea+"");
 				
 				if(checkToggle==0){
 					
-					 sumTwoAngle=angle+secondAngle;
+					 sumTwoAngle=angle+angle2;
 							if(!triangleValues.equals("null")&&triangleValues.length()>=5 ){
-										if(sumTwoAngle>=180 ||sumTwoAngle==-8888.0|| sinValue>1||triangleArea<0 || triangleArea==-8888.0 ||secondAngle==-8888.0)
+										if(sumTwoAngle>=180 ||sumTwoAngle==-8888.0|| sinValue>1||triangleArea<0 || triangleArea==-8888.0 ||angle2==-8888.0)
 										{
 											triangleNotValid();
 											
 										} else
 										{
 												Bundle bundle = new Bundle();
-												 bundle.putInt("l1", length1);
-											    bundle.putInt("l2", length2);
-											    bundle.putInt("angle", angle);
+												 bundle.putDouble("l1", length1);
+											    bundle.putDouble("l2", length2);
+											    bundle.putDouble("angle", angle);
 											    Intent triangle = new Intent(this,Triangle.class);
 												triangle.putExtras(bundle);
 												startActivity(triangle);
@@ -204,7 +238,7 @@ public class InputActivity extends Activity implements OnClickListener {
 				}
 				else if(checkToggle==1)
 				{
-					double sumAngle=angle1+angle2;
+					double sumAngle=angle1A+angle2A;
 					if(sumAngle>=180)
 					{
 						triangleNotValid();
