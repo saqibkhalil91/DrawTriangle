@@ -52,10 +52,11 @@ public class InputActivity extends Activity implements OnClickListener {
 			length2= Integer.parseInt(part2);
 			angle=Integer.parseInt(part3);
 			angle2=findAngle(length1, length2, angle);
-				angle3=getAngle3(angle1A, angle2A);
+				angle3=getAngle3(angle, angle2);
 			 sinValue =givenAngleSinValue(length1, length2, angle);		
 			 double sidesRatio=triangleSideRatio(length1, length2, angle2);
 			 triangleArea =triangleArea(sidesRatio, length1, length2, thirdLength);
+			 length3=thirdLength;
 				Log.d("length1", length1+"");
 				Log.d("length2",length2+"");
 				Log.d("length3",length3+"");
@@ -178,7 +179,8 @@ public class InputActivity extends Activity implements OnClickListener {
 	}
 	private double getAngle3(double angle1,double angle2)
 	{
-		double findThirdAngle =180-angle1-angle2;
+		double findThirdAngle =180.0-angle1;
+		findThirdAngle=findThirdAngle-angle2;
 		return findThirdAngle;
 	}
 	private double findSide(double angle1,double angle2,double c)
@@ -204,6 +206,7 @@ public class InputActivity extends Activity implements OnClickListener {
 		switch(key)
 		{
 			case R.id.btnEnter:
+				
 				double sumTwoAngle;
 				String triangleValues = values.getText().toString();
 				
@@ -224,9 +227,13 @@ public class InputActivity extends Activity implements OnClickListener {
 										} else
 										{
 												Bundle bundle = new Bundle();
-												 bundle.putDouble("l1", length1);
+												bundle.putDouble("l1", length1);
 											    bundle.putDouble("l2", length2);
-											    bundle.putDouble("angle", angle);
+											    bundle.putDouble("l3", length3);
+											    bundle.putDouble("a1", angle);
+											    bundle.putDouble("a2", angle2);
+											    bundle.putDouble("a3", angle3);
+											    bundle.putInt("toggle", checkToggle);
 											    Intent triangle = new Intent(this,Triangle.class);
 												triangle.putExtras(bundle);
 												startActivity(triangle);
@@ -245,9 +252,17 @@ public class InputActivity extends Activity implements OnClickListener {
 					}
 					else
 					{
-						//set values in bundle and send data to next activity
-						// Intent triangle = new Intent(this,Triangle.class);
-						//startActivity(triangle);
+						Bundle bundle = new Bundle();
+						bundle.putDouble("l1", length1A);
+					    bundle.putDouble("l2", length2A);
+					    bundle.putDouble("l3", length3A);
+					    bundle.putDouble("a1", angle1A);
+					    bundle.putDouble("a2", angle2A);
+					    bundle.putDouble("a3", angle3A);
+					    bundle.putInt("toggle", checkToggle);
+					    Intent triangle = new Intent(this,Triangle.class);
+						triangle.putExtras(bundle);
+						startActivity(triangle);
 					}
 				}
 			
