@@ -17,18 +17,60 @@ public class TriangleView extends View {
 	double length1,length2,angle1,length3,angle2,angle3;
 	int toggle;
 	double scalingFactor;
-    public TriangleView(Context context,double l1,double l2,double l3,double a1,double a2,double a3,int toggle) {
+    public TriangleView(Context context) {
          super(context);
-         this.length1=l1;
+        /* this.length1=l1;
          this.length2=l2;
          this.length3=l3;
          this.angle1=a1;
          this.angle2=a2;
          this.angle3=a3;
-         this.toggle =toggle;
+         this.toggle =toggle;*/
          // TODO Auto-generated constructor stub
     }
-    public int getPx(int length)
+    public int getToggle() {
+		return toggle;
+	}
+	public void setToggle(int toggle) {
+		this.toggle = toggle;
+	}
+	public double getLength1() {
+		return length1;
+	}
+	public void setLength1(double length1) {
+		this.length1 = length1;
+	}
+	public double getLength2() {
+		return length2;
+	}
+	public void setLength2(double length2) {
+		this.length2 = length2;
+	}
+	public double getAngle1() {
+		return angle1;
+	}
+	public void setAngle1(double angle1) {
+		this.angle1 = angle1;
+	}
+	public double getLength3() {
+		return length3;
+	}
+	public void setLength3(double length3) {
+		this.length3 = length3;
+	}
+	public double getAngle2() {
+		return angle2;
+	}
+	public void setAngle2(double angle2) {
+		this.angle2 = angle2;
+	}
+	public double getAngle3() {
+		return angle3;
+	}
+	public void setAngle3(double angle3) {
+		this.angle3 = angle3;
+	}
+	public int getPx(int length)
     {
     	
     	double value = length*scalingFactor;
