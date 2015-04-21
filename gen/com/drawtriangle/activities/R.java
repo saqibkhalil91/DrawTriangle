@@ -2031,7 +2031,7 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f0b0041;
         public static final int action_mode_bar_stub=0x7f0b0040;
         public static final int action_mode_close_button=0x7f0b0033;
-        public static final int action_settings=0x7f0b0056;
+        public static final int action_settings=0x7f0b0057;
         public static final int activity_chooser_view_content=0x7f0b0034;
         public static final int always=0x7f0b0025;
         public static final int beginning=0x7f0b002c;
@@ -2088,6 +2088,7 @@ containing a value of this type.
         public static final int search_src_text=0x7f0b004d;
         public static final int search_voice_btn=0x7f0b0051;
         public static final int selectionDetails=0x7f0b0014;
+        public static final int shapeSelector=0x7f0b0056;
         public static final int shortcut=0x7f0b003d;
         public static final int showCustom=0x7f0b0021;
         public static final int showHome=0x7f0b0022;
@@ -2159,6 +2160,7 @@ containing a value of this type.
         public static final int activity_input=0x7f030017;
         public static final int activity_triangle=0x7f030018;
         public static final int support_simple_spinner_dropdown_item=0x7f030019;
+        public static final int triangleview=0x7f03001a;
     }
     public static final class menu {
         public static final int input=0x7f0c0000;

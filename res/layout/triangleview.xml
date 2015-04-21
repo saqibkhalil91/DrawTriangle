@@ -1,0 +1,20 @@
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   
+ >
+  
+
+    <com.drawtriangle.activities.TriangleView
+        android:id="@+id/shapeSelector"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true">
+      </com.drawtriangle.activities.TriangleView>
+  </HorizontalScrollView>
+
+    
+
+

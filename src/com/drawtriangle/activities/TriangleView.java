@@ -8,7 +8,9 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.Path.FillType;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 
 
@@ -19,6 +21,8 @@ public class TriangleView extends View {
 	double scalingFactor;
     public TriangleView(Context context) {
          super(context);
+//         LayoutInflater layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//         View view=layoutInflater.inflate(R.layout.triangleview,this);
         /* this.length1=l1;
          this.length2=l2;
          this.length3=l3;
