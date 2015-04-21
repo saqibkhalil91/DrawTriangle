@@ -84,6 +84,7 @@ public class TriangleView extends View {
     public void setScaling(double length)
     {
     	 scalingFactor=getWidth()-40;
+    	
     	 scalingFactor=scalingFactor/length;
     }
     private double degreeToRadian(double degree)
@@ -116,13 +117,15 @@ public class TriangleView extends View {
     	// int half = length1/2;
         //int xCoordinate = getWidth()/2;
     		
-      int  xCoordinate= (int) (scaledlength1+20);
+     // int  xCoordinate= (int) (scaledlength1+20);
+    		int xCoordinate =0;
          int yCoodinate= getHeight()/2;
          int half=length2/2;
          
          yCoodinate=yCoodinate+half;
-          point1 = new Point(xCoordinate, yCoodinate);
-          point2 = new Point(length1+xCoordinate, yCoodinate);
+          point1 = new Point((int) (xCoordinate*0.8474), yCoodinate);
+          int sum =length1+xCoordinate;
+          point2 = new Point((int) (sum*0.8474), yCoodinate);
            	double cos =  Math.cos(angle1);
            	cos= cos*length2;
            	double xStart = length1+xCoordinate;
@@ -133,17 +136,20 @@ public class TriangleView extends View {
            	double cy =yStart-sin;
            	int ccx=(int) cx;
            	int ccy =(int)cy;
-           	 point3 = new Point(ccx,ccy);
+           	
+           	 point3 = new Point((int) (ccx*0.8474),ccy);
            	 Log.d("max lenght",  maxLength+"");
-           	 
            	 Log.d("length1", length1+"");
              Log.d("length2", length2+"");
              Log.d("length3", length3+"");
              Log.d("a1", this.angle1+"");
              Log.d("a2", this.angle2+"");
              Log.d("a3", this.angle3+"");
-       	Log.d("point 3", point3+"");
-       	Log.d("toggle", this.toggle+"");
+             Log.d("point 1", point1+"");
+             Log.d("point 2", point2+"");
+             Log.d("point 3", point3+"");
+             Log.d("hight", getHeight()+"");
+             Log.d("toggle", this.toggle+"");
        	
     }
     private void triangleCalculations()
@@ -192,54 +198,35 @@ public class TriangleView extends View {
                  Log.d("a3", this.angle3+"");
                	Log.d("point 3", point3+"");
                	Log.d("toggle", this.toggle+"");*/
-
-
-        }
+            }
     }
     @SuppressLint("DrawAllocation")
 	@Override
     protected void onDraw(Canvas canvas) {
        // TODO Auto-generated method stub
        super.onDraw(canvas);
-
-
-     
-    
        Paint paint = new Paint();
-
-       paint.setColor(android.graphics.Color.WHITE);
-       canvas.drawPaint(paint);
-    
-       paint.setStrokeWidth(5);
-       paint.setColor(android.graphics.Color.WHITE);
-       paint.setStyle(Paint.Style.STROKE);
-       paint.setAntiAlias(true);
-       
-    
-        
-
-       Path path = new Path();
-      path.setFillType(FillType.EVEN_ODD);
-      
-      
-      paint.setColor(Color.RED); 
+       	paint.setColor(android.graphics.Color.WHITE);
+       	canvas.drawPaint(paint);
+       	paint.setStrokeWidth(5);
+       	paint.setColor(android.graphics.Color.WHITE);
+       	paint.setStyle(Paint.Style.STROKE);
+       	paint.setAntiAlias(true);
+       	Path path = new Path();
+       	path.setFillType(FillType.EVEN_ODD);
+      	paint.setColor(Color.RED); 
      	paint.setTextSize(20); 
-     	
-     	
-     
-  
-    	
      	triangleCalculations();
-    	canvas.drawText(""+length1, point2.x,point2.y, paint);
+    	/*canvas.drawText(""+length1, point2.x,point2.y, paint);
        	canvas.drawText("Length2 is "+length2, 10,75, paint);
      	canvas.drawText("Length3 is "+length3, 10,105, paint);
      	canvas.drawText("Angle1 is "+angle1, 10,145, paint);
      	canvas.drawText("Angle2 is "+angle2, 10,185, paint);
      	canvas.drawText("Angle3 is "+angle3, 10,225, paint);
-    	canvas.drawText("1 cm is = 5px", 10,255, paint);
+    	canvas.drawText("1 cm is = 5px", 10,255, paint);*/
       path.moveTo(point1.x, point1.y);
        path.lineTo(point2.x, point2.y);
-     // path.moveTo(point2.x, point2.y);
+      //path.moveTo(point2.x, point2.y);
       path.lineTo(point3.x, point3.y);
       path.lineTo(point1.x, point1.y);
        path.close();

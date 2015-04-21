@@ -25,6 +25,7 @@ public class Triangle extends Activity {
 		super.onCreate(savedInstanceState);
 		getBundleValues();
 		setContentView(triangle);
+		//triangle=(TriangleView)findViewById(R.id.shapeSelector);
 
 	}
 

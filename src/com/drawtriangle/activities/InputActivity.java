@@ -57,12 +57,7 @@ public class InputActivity extends Activity implements OnClickListener {
 			 double sidesRatio=triangleSideRatio(length1, length2, angle2);
 			 triangleArea =triangleArea(sidesRatio, length1, length2, thirdLength);
 			 length3=thirdLength;
-				Log.d("length1", length1+"");
-				Log.d("length2",length2+"");
-				Log.d("length3",length3+"");
-				Log.d("angle1", angle+"");
-				Log.d("angle2",angle2+"");
-				Log.d("angle3", angle3+"");
+				
 				
 		}else if(checkToggle==1)
 		{
@@ -72,12 +67,7 @@ public class InputActivity extends Activity implements OnClickListener {
 			angle3A=getAngle3(angle1A, angle2A);
 			length2A=findSide(angle1A, angle3A, length1A);
 			length3A=findSide(angle2A, angle3A, length1A);
-			Log.d("angle1", angle1A+"");
-			Log.d("angle2",angle2A+"");
-			Log.d("angle3",angle3A+"");
-			Log.d("lenght1", length1A+"");
-			Log.d("length2A",length2A+"");
-			Log.d("length3A", length3A+"");
+			
 		}
 			 
 	}
@@ -220,7 +210,7 @@ public class InputActivity extends Activity implements OnClickListener {
 					
 					 sumTwoAngle=angle+angle2;
 							if(!triangleValues.equals("null")&&triangleValues.length()>=5 ){
-										if(sumTwoAngle>=180 ||sumTwoAngle==-8888.0|| sinValue>1||triangleArea<0 || triangleArea==-8888.0 ||angle2==-8888.0)
+										if(sumTwoAngle>180 ||sumTwoAngle==-8888.0|| sinValue>1||triangleArea<0 || triangleArea==-8888.0 ||angle2==-8888.0)
 										{
 											triangleNotValid();
 											
