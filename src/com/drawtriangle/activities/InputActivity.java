@@ -161,9 +161,9 @@ public class InputActivity extends Activity implements OnClickListener {
 	    
 	    if (on) {
 	    	checkToggle=1;
-	        Toast.makeText(this, "AAL", Toast.LENGTH_LONG).show();
+	     
 	    } else {
-	    	   Toast.makeText(this, "LLA", Toast.LENGTH_LONG).show();
+	    	 
 	    	   checkToggle=0;
 	    }
 	}
@@ -202,15 +202,13 @@ public class InputActivity extends Activity implements OnClickListener {
 				
 				separateValues(triangleValues);
 			
-				Log.d("secondAngle", angle2+"");
-				Log.d("sinValue", sinValue+"");
-				Log.d("triangleArea", triangleArea+"");
+				
 				
 				if(checkToggle==0){
 					
 					 sumTwoAngle=angle+angle2;
 							if(!triangleValues.equals("null")&&triangleValues.length()>=5 ){
-										if(sumTwoAngle>180 ||sumTwoAngle==-8888.0|| sinValue>1||triangleArea<0 || triangleArea==-8888.0 ||angle2==-8888.0)
+										if(sumTwoAngle>180 ||sumTwoAngle==-8888.0|| sinValue>1||triangleArea<0 || triangleArea==-8888.0 ||angle2==-8888.0||angle>90)
 										{
 											triangleNotValid();
 											
