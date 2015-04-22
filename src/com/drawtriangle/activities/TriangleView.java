@@ -281,6 +281,7 @@ public class TriangleView extends View {
      	int checkWidth = getWidth();
      	float point1XF=(float) (point1.x*f);
      	float point2XF =(float) (point2.x*f); 
+     	float point3XF =(float) (point3.x*f);
       	float sum1 =pointsDifference(point1XF,point2XF);
       	
       	
@@ -292,10 +293,7 @@ public class TriangleView extends View {
 		String formatAngle1= numberFormatter(angle1);
 		String formatAngle2= numberFormatter(angle2);
 		String formatAngle3= numberFormatter(angle3);
-		float differencePoints=(float) (point3.x*f);
-//		float point1xx= (float) (point1.x*f);
-//  		differencePoints=differencePoints-point1xx;
-//  		differencePoints=differencePoints-point1xx;
+	
      	if(point3.x>checkWidth || point2.x>checkWidth || point1.x>checkWidth)
      	{
    
@@ -308,7 +306,7 @@ public class TriangleView extends View {
       		
       		
           	canvas.drawText(""+length1, sum1,point1.y, paint);
-          	canvas.drawText(""+length2, (float) (point2.x*f),sum2, paint);
+          	canvas.drawText(""+length2, (float) (point2XF),sum2, paint);
            	canvas.drawText(""+formatLength,point1.x+10,sum3, paint);
            
            	
@@ -317,22 +315,20 @@ public class TriangleView extends View {
         	Log.d("length3 Text", (float) point1.x+60+","+(float) (sum3*f));
         	
         	
-        	float formatangle3 =(float) (point3.x*f);
-        	float formatangle2 =(float) (point2.x*f);
-        	float formatangle1 =(float) (point1.x*f);
-        	canvas.drawText(""+formatAngle3, formatangle3,point3.y, paint);
-           	canvas.drawText(""+formatAngle1,formatangle1,point1.y, paint);
-         	canvas.drawText(" "+formatAngle2, formatangle2,point2.y, paint);
+        
+        	canvas.drawText(""+formatAngle3, point3XF,point3.y, paint);
+           	canvas.drawText(""+formatAngle1,point1XF,point1.y, paint);
+         	canvas.drawText(" "+formatAngle2, point2XF,point2.y, paint);
          	
          	
          	
          	
-           	path.moveTo((float) (point1.x*f), point1.y);
-           	path.lineTo((float) (point2.x*f), point2.y);
-           	path.moveTo((float) (point2.x*f), point2.y);
-           	path.lineTo((float) (point3.x*f), point3.y);
+           	path.moveTo((float) (point1XF), point1.y);
+           	path.lineTo((float) (point2XF), point2.y);
+           	path.moveTo((float) (point2XF), point2.y);
+           	path.lineTo((float) (point3XF), point3.y);
       
-           	path.lineTo((float) (point1.x*f), point1.y);
+           	path.lineTo((float) (point1XF), point1.y);
            	path.close();
            	canvas.drawPath(path, paint);
        
