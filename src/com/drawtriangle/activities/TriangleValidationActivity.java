@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-public class InputActivity extends Activity implements OnClickListener {
+public class TriangleValidationActivity extends Activity implements OnClickListener {
 	private Button enter;
 	private EditText values;
 	private double length1;
@@ -209,7 +209,7 @@ public class InputActivity extends Activity implements OnClickListener {
 					
 					 sumTwoAngle=angle+angle2;
 							if(!triangleValues.equals("null")&&triangleValues.length()>=5 ){
-										if(sumTwoAngle>180 ||sumTwoAngle==-8888.0|| sinValue>1||triangleArea<0 || triangleArea==-8888.0 || angle>90||angle2==-8888.0||angle==angle3)
+										if(sumTwoAngle>180 ||sumTwoAngle==-8888.0|| sinValue>1||triangleArea<0 || triangleArea==-8888.0 ||angle2==-8888.0||angle==angle3)
 										{
 											triangleNotValid();
 											
