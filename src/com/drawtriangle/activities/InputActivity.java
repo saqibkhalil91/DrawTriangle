@@ -65,6 +65,7 @@ public class InputActivity extends Activity implements OnClickListener {
 			angle2A= Integer.parseInt(part2);
 			length1A=Integer.parseInt(part3);
 			angle3A=getAngle3(angle1A, angle2A);
+			// sinValue =givenAngleSinValue(length1A, length2A, angle);
 			length2A=findSide(angle1A, angle3A, length1A);
 			length3A=findSide(angle2A, angle3A, length1A);
 			
@@ -208,7 +209,7 @@ public class InputActivity extends Activity implements OnClickListener {
 					
 					 sumTwoAngle=angle+angle2;
 							if(!triangleValues.equals("null")&&triangleValues.length()>=5 ){
-										if(sumTwoAngle>180 ||sumTwoAngle==-8888.0|| sinValue>1||triangleArea<0 || triangleArea==-8888.0 ||angle2==-8888.0||angle>90)
+										if(sumTwoAngle>180 ||sumTwoAngle==-8888.0|| sinValue>1||triangleArea<0 || triangleArea==-8888.0 || angle>90||angle2==-8888.0||angle==angle3)
 										{
 											triangleNotValid();
 											
