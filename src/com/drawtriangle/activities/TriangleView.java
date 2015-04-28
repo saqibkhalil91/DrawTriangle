@@ -18,11 +18,12 @@ import android.view.View;
 public class TriangleView extends View {
 	private Point point1, point2, point3;
 	private Path path;
-	private double length1, length2, angle1, length3, angle2, angle3;
+	private double length1, length2, angle1, length3, angle2, angle3,ratioWidthPoint3X,scalingFactor;
 	private Paint paint;
-	private int toggle;
-	private double scalingFactor;
-	private double ratioWidthPoint3X;
+	private int toggle,checkWidth,checkX;
+	private float point1XF,point2XF,point3XF,sumPoint1Point2XF,sumPoint2Point3Y,sumPoint1Point3Y;
+	private String formatLength2,formatLength,formatAngle1,formatAngle2,formatAngle3;
+	
 
 	public TriangleView(Context context) {
 		super(context);
@@ -219,6 +220,67 @@ public class TriangleView extends View {
 		 ratioWidthPoint3X = w / p;
 		 ratioWidthPoint3X = ratioWidthPoint3X - 0.2;
 	}
+	private void valueFormatting()
+	{
+		 checkWidth = getWidth();
+		 point1XF = (float) (point1.x * ratioWidthPoint3X);
+		point1XF = point1XF + 17;
+		 point2XF = (float) (point2.x * ratioWidthPoint3X);
+		 point3XF = (float) (point3.x * ratioWidthPoint3X);
+	
+		 sumPoint2Point3Y = pointsDifferenc(point2.y, point3.y);
+		 sumPoint1Point3Y = pointsDifferenc(point1.y, point3.y);
+		 formatLength2 = numberFormatter(length2);
+		 formatLength = numberFormatter(length3);
+		formatAngle1 = numberFormatter(angle1);
+		 formatAngle2 = numberFormatter(angle2);
+		 formatAngle3 = numberFormatter(angle3);
+		checkX = 100;
+	}
+	private void angleAngleLengthTriangle(Canvas canvas)
+	{
+		sumPoint1Point2XF = pointsDifference(point1XF, point2XF);
+		canvas.drawText("" + length1, sumPoint1Point2XF, point1.y, paint);
+		canvas.drawText("" + formatLength2, (float) (point2XF), sumPoint2Point3Y, paint);
+		canvas.drawText("" + formatLength, point1.x + 10, sumPoint1Point3Y, paint);
+		if (toggle == 0) {
+			canvas.drawText("" + formatAngle3, point3XF, point3.y, paint);
+			canvas.drawText("" + formatAngle1, point1XF + checkX, point1.y,paint);
+			canvas.drawText(" " + formatAngle2, point2XF, point2.y, paint);
+		} else {
+			canvas.drawText("" + formatAngle2, point3XF, point3.y, paint);
+			canvas.drawText("" + formatAngle1, point1XF, point1.y, paint);
+			canvas.drawText(" " + formatAngle3, point2XF, point2.y, paint);
+		}
+		point1.x = point1.x;// +17;
+		float abc = (float) 1;
+		path.moveTo(point1.x * abc, point1.y);
+		Log.d("point1XF", point1XF + "");
+		path.lineTo((float) (point2XF * abc), point2.y);
+		path.moveTo((float) (point2XF * abc), point2.y);
+		path.lineTo((float) (point3XF * abc), point3.y);
+
+		path.lineTo(point1.x * abc, point1.y);
+		path.close();
+		canvas.drawPath(path, paint);
+	}
+	private void lengthLengthAngleTriangle(Canvas canvas)
+	{
+		sumPoint1Point2XF = pointsDifference(point1.x, point2.x);
+		canvas.drawText("" + length1, sumPoint1Point2XF, point2.y + 40, paint);
+		canvas.drawText("" + formatLength2, point2.x + 20, sumPoint2Point3Y, paint);
+		canvas.drawText("" + formatLength, point1.x + 10, sumPoint1Point3Y, paint);
+		canvas.drawText("" + formatAngle2, point1.x + 10, point1.y, paint);
+		canvas.drawText("" + formatAngle1, point2.x + 10, point2.y, paint);
+		canvas.drawText(" " + formatAngle3, point3.x + 10, point3.y, paint);
+		path.moveTo(point1.x , point1.y);
+		path.lineTo(point2.x , point2.y);
+		path.moveTo(point2.x , point2.y);
+		path.lineTo(point3.x , point3.y);
+		path.lineTo(point1.x , point1.y);
+		path.close();
+		canvas.drawPath(path, paint);
+	}
 	@SuppressLint("DrawAllocation")
 	@Override
 	protected void onDraw(Canvas canvas) {
@@ -227,64 +289,13 @@ public class TriangleView extends View {
 		setPaintProperties(canvas);
 		triangleCalculations();
 		ratioWidthPoint3();
-		int checkWidth = getWidth();
-		float point1XF = (float) (point1.x * ratioWidthPoint3X);
-		point1XF = point1XF + 17;
-		float point2XF = (float) (point2.x * ratioWidthPoint3X);
-		float point3XF = (float) (point3.x * ratioWidthPoint3X);
-		float sum1;
-		float sum2 = pointsDifferenc(point2.y, point3.y);
-		float sum3 = pointsDifferenc(point1.y, point3.y);
-		String formatLength2 = numberFormatter(length2);
-		String formatLength = numberFormatter(length3);
-		String formatAngle1 = numberFormatter(angle1);
-		String formatAngle2 = numberFormatter(angle2);
-		String formatAngle3 = numberFormatter(angle3);
-		int checkX = 100;
+		valueFormatting();
 		if (point3.x > checkWidth || point2.x > checkWidth
 				|| point1.x > checkWidth) {
-			sum1 = pointsDifference(point1XF, point2XF);
-			canvas.drawText("" + length1, sum1, point1.y, paint);
-			canvas.drawText("" + formatLength2, (float) (point2XF), sum2, paint);
-			canvas.drawText("" + formatLength, point1.x + 10, sum3, paint);
-			if (toggle == 0) {
-				canvas.drawText("" + formatAngle3, point3XF, point3.y, paint);
-				canvas.drawText("" + formatAngle1, point1XF + checkX, point1.y,paint);
-				canvas.drawText(" " + formatAngle2, point2XF, point2.y, paint);
-			} else {
-				canvas.drawText("" + formatAngle2, point3XF, point3.y, paint);
-				canvas.drawText("" + formatAngle1, point1XF, point1.y, paint);
-				canvas.drawText(" " + formatAngle3, point2XF, point2.y, paint);
-			}
-			point1.x = point1.x;// +17;
-			float abc = (float) 1;
-			path.moveTo(point1.x * abc, point1.y);
-			Log.d("point1XF", point1XF + "");
-			path.lineTo((float) (point2XF * abc), point2.y);
-			path.moveTo((float) (point2XF * abc), point2.y);
-			path.lineTo((float) (point3XF * abc), point3.y);
-
-			path.lineTo(point1.x * abc, point1.y);
-			path.close();
-			canvas.drawPath(path, paint);
+			angleAngleLengthTriangle(canvas);
 
 		} else {
-			
-			sum1 = pointsDifference(point1.x, point2.x);
-			canvas.drawText("" + length1, sum1, point2.y + 40, paint);
-			canvas.drawText("" + formatLength2, point2.x + 20, sum2, paint);
-			canvas.drawText("" + formatLength, point1.x + 10, sum3, paint);
-			canvas.drawText("" + formatAngle2, point1.x + 10, point1.y, paint);
-			canvas.drawText("" + formatAngle1, point2.x + 10, point2.y, paint);
-			canvas.drawText(" " + formatAngle3, point3.x + 10, point3.y, paint);
-			path.moveTo(point1.x , point1.y);
-			Log.d("point1.x", point1.x  + "");
-			path.lineTo(point2.x , point2.y);
-			path.moveTo(point2.x , point2.y);
-			path.lineTo(point3.x , point3.y);
-			path.lineTo(point1.x , point1.y);
-			path.close();
-			canvas.drawPath(path, paint);
+			lengthLengthAngleTriangle(canvas);
 		}
 	}
 
