@@ -25,14 +25,7 @@ public class TriangleView extends View {
 
 	public TriangleView(Context context) {
 		super(context);
-		// LayoutInflater layoutInflater =
-		// (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		// View view=layoutInflater.inflate(R.layout.triangleview,this);
-		/*
-		 * this.length1=l1; this.length2=l2; this.length3=l3; this.angle1=a1;
-		 * this.angle2=a2; this.angle3=a3; this.toggle =toggle;
-		 */
-		// TODO Auto-generated constructor stub
+	
 	}
 
 	public int getToggle() {
@@ -115,10 +108,7 @@ public class TriangleView extends View {
 		double scaleLength1 = width - length1;
 		scaleLength1 = scaleLength1 / 2;
 		int scaledlength1 = (int) scaleLength1;
-		/*
-		 * Log.d("scaledlength1", scaledlength1+""); Log.d("width", width+"");
-		 * Log.d("length1", length1+"")
-		 */;
+	
 		return scaledlength1;
 	}
 
@@ -131,11 +121,7 @@ public class TriangleView extends View {
 		scaledlength1 = scaledlength1 / 2;
 		length2 = getPx(length2);
 		angle1 = degreeToRadian(angle1);
-		// int half = length1/2;
-		// int xCoordinate = getWidth()/2;
-
 		int xCoordinate = (int) (scaledlength1 + 20);
-		// int xCoordinate =0;
 		int yCoodinate = getHeight() / 2;
 		int half = length2 / 2;
 
@@ -165,11 +151,8 @@ public class TriangleView extends View {
 		double cy = yStart - sin;
 		int ccx = (int) cx;
 		int ccy = (int) cy;
-
 		point3 = new Point(ccx, ccy);
-		
-
-	}
+		}
 
 	private void triangleCalculations() {
 		if (this.toggle == 0) {
@@ -213,22 +196,26 @@ public class TriangleView extends View {
 		String formatLength = numberFormat.format(length) + "";
 		return formatLength;
 	}
-	@SuppressLint("DrawAllocation")
-	@Override
-	protected void onDraw(Canvas canvas) {
-		// TODO Auto-generated method stub
-		super.onDraw(canvas);
-		Paint paint = new Paint();
+	private void setPaintProperties(Canvas canvas){
+		paint = new Paint();
 		paint.setColor(android.graphics.Color.WHITE);
 		canvas.drawPaint(paint);
 		paint.setStrokeWidth(5);
 		paint.setColor(android.graphics.Color.WHITE);
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setAntiAlias(true);
-		Path path = new Path();
+		 path = new Path();
 		path.setFillType(FillType.EVEN_ODD);
 		paint.setColor(Color.RED);
 		paint.setTextSize(40);
+		paint.setAntiAlias(true);
+	}
+	@SuppressLint("DrawAllocation")
+	@Override
+	protected void onDraw(Canvas canvas) {
+		// TODO Auto-generated method stub
+		super.onDraw(canvas);
+		setPaintProperties(canvas);
 		triangleCalculations();
 		double w = getWidth() + 0.0;
 		double p = point3.x + 0.0;
@@ -257,7 +244,7 @@ public class TriangleView extends View {
 			Log.d("point3.x", point3.x + "");
 
 			Log.d("f", f + "");
-			paint.setAntiAlias(true);
+			
 
 			sum1 = pointsDifference(point1XF, point2XF);
 
@@ -300,11 +287,9 @@ public class TriangleView extends View {
 			canvas.drawText("" + length1, sum1, point2.y + 40, paint);
 			canvas.drawText("" + formatLength2, point2.x + 20, sum2, paint);
 			canvas.drawText("" + formatLength, point1.x + 10, sum3, paint);
-
 			canvas.drawText("" + formatAngle2, point1.x + 10, point1.y, paint);
 			canvas.drawText("" + formatAngle1, point2.x + 10, point2.y, paint);
 			canvas.drawText(" " + formatAngle3, point3.x + 10, point3.y, paint);
-			
 			path.moveTo(point1.x , point1.y);
 			Log.d("point1.x", point1.x  + "");
 			path.lineTo(point2.x , point2.y);
