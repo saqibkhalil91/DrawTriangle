@@ -16,7 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 public class Triangle extends Activity {
-	private double length1, length2, length3, angle1, angle2, angle3;
+	private double length1, length2, length3, angle1, angle2, angle3,abc;
 	int toggle_flag;
 	TriangleView triangle;
 
